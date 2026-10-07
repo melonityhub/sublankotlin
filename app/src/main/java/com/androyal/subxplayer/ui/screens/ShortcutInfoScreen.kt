@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShortcutInfoScreenScreen(navController: NavController){
+fun ShortcutInfoScreen(navController: NavController){
     val shortcuts = listOf("Space" to "Play/Pause","← →" to "Seek 10s","↑ ↓" to "Volume","F" to "Fullscreen","M" to "Mute","C" to "Captions","N/P" to "Next/Prev subtitle", "A" to "AB Repeat", "S" to "Screenshot")
     Scaffold(topBar={ TopAppBar(title={Text("Shortcuts")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←")}})}){
         padding ->

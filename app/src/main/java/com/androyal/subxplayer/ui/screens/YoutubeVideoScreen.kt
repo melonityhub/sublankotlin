@@ -14,7 +14,7 @@ import android.webkit.WebViewClient
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun YoutubeVideoScreenScreen(navController: NavController, videoId:String){
+fun YoutubeVideoScreen(navController: NavController, videoId:String){
     Scaffold(topBar={ TopAppBar(title={Text("YouTube Player")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←")}})}){
         padding ->
         Column(Modifier.padding(padding).fillMaxSize()){

@@ -14,7 +14,7 @@ import com.androyal.subxplayer.features.subtitlegeneration.AsrModelCatalog
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ManageAsrModelsScreenScreen(navController: NavController){
+fun ManageAsrModelsScreen(navController: NavController){
     Scaffold(topBar={ TopAppBar(title={Text("ASR Models")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←")}})}){
         padding ->
         LazyColumn(Modifier.padding(padding).fillMaxSize(), contentPadding=PaddingValues(16.dp), verticalArrangement=Arrangement.spacedBy(12.dp)){

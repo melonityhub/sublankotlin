@@ -14,7 +14,7 @@ import com.androyal.subxplayer.utils.RevenueCatService
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PremiumScreenScreen(navController: NavController){
+fun PremiumScreen(navController: NavController){
     val isPremium by RevenueCatService.isPremium.collectAsState()
     var restoreMsg by remember{ mutableStateOf<String?>(null)}
     Scaffold(topBar={ TopAppBar(title={Text("SubX+")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←") }}) }){

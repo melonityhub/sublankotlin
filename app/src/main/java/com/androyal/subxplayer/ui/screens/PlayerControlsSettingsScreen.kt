@@ -12,7 +12,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlayerControlsSettingsScreenScreen(navController: NavController){
+fun PlayerControlsSettingsScreen(navController: NavController){
     Scaffold(topBar={ TopAppBar(title={Text("Player Controls")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←")}})}){
         padding ->
         LazyColumn(Modifier.padding(padding).padding(16.dp), verticalArrangement=Arrangement.spacedBy(12.dp)){

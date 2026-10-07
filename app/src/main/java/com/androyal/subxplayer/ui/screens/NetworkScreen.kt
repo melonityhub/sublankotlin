@@ -16,7 +16,7 @@ import com.androyal.subxplayer.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NetworkScreenScreen(navController: NavController){
+fun NetworkScreen(navController: NavController){
     var url by remember{ mutableStateOf("")}
     var history by remember{ mutableStateOf(listOf("https://demo.unified-streaming.com/k8s/features/stream/foreman.m3u8","https://example.com/video.mp4"))}
     Scaffold(topBar={ TopAppBar(title={Text("Network Stream")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Icon(Icons.Default.ArrowBack,null)}})}){

@@ -14,7 +14,7 @@ import com.androyal.subxplayer.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DemoScreenScreen(navController: NavController){
+fun DemoScreen(navController: NavController){
     Scaffold(topBar={ TopAppBar(title={Text("Demo")}) }){
         padding ->
         Column(Modifier.padding(padding).padding(24.dp).fillMaxSize(), verticalArrangement=Arrangement.spacedBy(16.dp)){

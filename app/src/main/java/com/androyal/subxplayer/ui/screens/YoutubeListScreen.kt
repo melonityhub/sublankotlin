@@ -19,7 +19,7 @@ import com.androyal.subxplayer.ui.navigation.Screen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun YoutubeListScreenScreen(navController: NavController, vm: YoutubeListViewModel = hiltViewModel()){
+fun YoutubeListScreen(navController: NavController, vm: YoutubeListViewModel = hiltViewModel()){
     val videos by vm.videos.collectAsState()
     val isLoading by vm.isLoading.collectAsState()
     Scaffold(topBar={ TopAppBar(title={Text("YouTube - Learn with TED")}) }){

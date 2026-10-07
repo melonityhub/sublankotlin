@@ -13,7 +13,7 @@ import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ManageOfflineLanguagesScreenScreen(navController: NavController){
+fun ManageOfflineLanguagesScreen(navController: NavController){
     val langs = listOf("en" to "English","fa" to "Persian","es" to "Spanish","fr" to "French","de" to "German","ja" to "Japanese","ko" to "Korean","ar" to "Arabic","ru" to "Russian","zh" to "Chinese")
     Scaffold(topBar={ TopAppBar(title={Text("Offline Languages")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←")}})}){
         padding ->
