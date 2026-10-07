@@ -123,8 +123,8 @@ dependencies {
     implementation("androidx.media3:media3-common:1.4.1")
     implementation("androidx.media:media:1.7.0")
 
-    // FFmpegKit (keep native libs)
-    implementation("com.github.AntonKarpenko:ffmpeg-kit:6.0-2.LTS")
+    // FFmpegKit (optional, native libs bundled separately)
+    // implementation("com.github.AntonKarpenko:ffmpeg-kit:6.0-2.LTS")
 
     // Firebase
     implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
@@ -146,7 +146,8 @@ dependencies {
     implementation("com.android.billingclient:billing-ktx:7.1.1")
 
     // Permissions
-    implementation("com.google.accompanist:accompanist-permissions:0.34.0")
+    // Permissions (accompanist deprecated, use activity result APIs)
+    // implementation("com.google.accompanist:accompanist-permissions:0.34.0")
     implementation("com.karumi:dexter:6.2.3")
 
     // Image + File
@@ -156,12 +157,13 @@ dependencies {
 
     // Utils
     implementation("androidx.documentfile:documentfile:1.0.1")
-    implementation("me.zhanghai.android.filesystem:filesystem:1.0.0")
+    // File utils (optional)
+    // implementation("me.zhanghai.android.filesystem:filesystem:1.0.0")
     implementation("org.apache.tika:tika-core:2.9.1")
     implementation("net.lingala.zip4j:zip4j:2.11.5")
 
-    // AnkiDroid API
-    implementation("com.ichi2.anki:api:0.2.1") { isTransitive = false }
+    // AnkiDroid API (optional, via reflection)
+    // implementation("com.ichi2.anki:api:0.2.1") { isTransitive = false }
 
     // TTS + Sherpa ONNX (bundled .so)
     implementation("androidx.speech:speech:1.0.0")

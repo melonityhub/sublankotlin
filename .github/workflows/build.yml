@@ -27,8 +27,8 @@ jobs:
         uses: android-actions/setup-android@v3
         continue-on-error: true
         with:
-          api-level: 36
-          build-tools: 36.0.0
+          api-level: 34
+          build-tools: 34.0.0
 
       - name: Ensure Android SDK exists (fallback)
         if: always()
@@ -39,49 +39,53 @@ jobs:
           if [ -z "$ANDROID_HOME" ]; then export ANDROID_HOME=$ANDROID_SDK_ROOT; fi
           echo "SDK at $ANDROID_HOME"
           ls -la $ANDROID_HOME 2>&1 | head -30
-          # Accept licenses
           yes | sdkmanager --licenses || true
-          sdkmanager "platforms;android-36" "build-tools;36.0.0" "platform-tools" || true
-          # Also try 34 as fallback
-          sdkmanager "platforms;android-34" "build-tools;34.0.0" || true
+          sdkmanager "platforms;android-34" "build-tools;34.0.0" "platform-tools" || true
 
       - name: Generate Gradle Wrapper if missing
         run: |
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
             echo "Generating wrapper..."
-            # Try to download wrapper jar from gradle distribution
             GRADLE_VERSION=8.7
             mkdir -p gradle/wrapper
-            curl -sL --retry 3 https://github.com/gradle/gradle/raw/v${GRADLE_VERSION}/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded wrapper jar" || echo "download failed, will try gradle wrapper task"
+            curl -sL --retry 3 https://github.com/gradle/gradle/raw/v${GRADLE_VERSION}/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded wrapper jar" || echo "download failed"
             ls -lh gradle/wrapper/ || true
-            if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
-              # Fallback: generate via gradle init if gradle available
-              echo "Attempting to generate wrapper via gradle..."
-              if command -v gradle >/dev/null 2>&1; then
-                gradle wrapper --gradle-version $GRADLE_VERSION || true
-              fi
-            fi
           fi
           chmod +x gradlew || true
           ls -lh gradlew gradle/wrapper/ || true
+          ./gradlew --version || true
 
       - name: Validate project
         run: |
           echo "Checking project structure..."
           ls -R app/src/main | head -100
-          cat app/build.gradle.kts | head -40
-          echo "--- gradle wrapper check ---"
+          cat app/build.gradle.kts | head -60
           cat gradle/wrapper/gradle-wrapper.properties
 
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug --stacktrace --warning-mode all
-        continue-on-error: false
+      - name: Build Debug APK (with log capture)
+        run: |
+          set +e
+          ./gradlew assembleDebug --stacktrace --warning-mode all 2>&1 | tee /tmp/build.log
+          EXIT=${PIPESTATUS[0]}
+          echo "Gradle exit code: $EXIT"
+          mkdir -p app/build/outputs/logs
+          cp /tmp/build.log app/build/outputs/logs/build.log || true
+          echo "---- last 500 lines of build.log ----"
+          tail -n 500 /tmp/build.log || true
+          if [ $EXIT -ne 0 ]; then
+            echo "Build failed, see log above"
+            # also show first error
+            grep -i "error" /tmp/build.log | head -100 || true
+            exit $EXIT
+          fi
 
       - name: Build Release APK
+        if: success()
         run: ./gradlew assembleRelease --stacktrace
         continue-on-error: true
 
       - name: Run Lint
+        if: success()
         run: ./gradlew lint --stacktrace
         continue-on-error: true
 
@@ -118,12 +122,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Upload Build Reports
+      - name: Upload Build Logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: build-reports
+          name: build-logs
           path: |
-            app/build/reports/
+            /tmp/build.log
             app/build/outputs/logs/
-          if-no-files-found: ignore
+            app/build/reports/
+          if-no-files-found: warn
