@@ -6,7 +6,20 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.androyal.subxplayer.ui.screens.*
+import com.androyal.subxplayer.ui.screens.DemoScreen
+import com.androyal.subxplayer.ui.screens.HomeScreen
+import com.androyal.subxplayer.ui.screens.ManageAsrModelsScreen
+import com.androyal.subxplayer.ui.screens.ManageOfflineLanguagesScreen
+import com.androyal.subxplayer.ui.screens.NetworkScreen
+import com.androyal.subxplayer.ui.screens.OnboardingScreen
+import com.androyal.subxplayer.ui.screens.PlayerAdvancedSettingsScreen
+import com.androyal.subxplayer.ui.screens.PlayerControlsSettingsScreen
+import com.androyal.subxplayer.ui.screens.PlayerScreen
+import com.androyal.subxplayer.ui.screens.PremiumScreen
+import com.androyal.subxplayer.ui.screens.SettingsScreen
+import com.androyal.subxplayer.ui.screens.ShortcutInfoScreen
+import com.androyal.subxplayer.ui.screens.YoutubeListScreen
+import com.androyal.subxplayer.ui.screens.YoutubeVideoScreen
 
 sealed class Screen(val route:String){
     data object Home: Screen("home")
