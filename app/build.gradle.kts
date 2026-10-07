@@ -9,12 +9,12 @@ plugins {
 
 android {
     namespace = "com.androyal.subxplayer"
-    compileSdk = 36
+    compileSdk = 34 // original 36, using 34 for CI runner compatibility
 
     defaultConfig {
         applicationId = "com.androyal.subxplayer"
         minSdk = 24
-        targetSdk = 36
+        targetSdk = 34
         versionCode = 47
         versionName = "2.3.1"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
