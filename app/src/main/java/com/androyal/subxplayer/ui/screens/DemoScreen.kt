@@ -1,5 +1,7 @@
 package com.androyal.subxplayer.ui.screens
 
+import android.net.Uri
+
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
@@ -15,9 +17,9 @@ fun DemoScreen(navController: NavController){
         padding ->
         Column(Modifier.padding(padding).padding(24.dp).fillMaxSize(), verticalArrangement=Arrangement.spacedBy(16.dp)){
             Text("Demo video with sample subtitles in 20+ languages.")
-            Button(onClick={ navController.navigate(Screen.Player.create(android.net.Uri.encode("android.resource://com.androyal.subxplayer/demo"), android.netUriEncodeHack("Demo")))} ) { Text("Play demo")}
+            Button(onClick={ navController.navigate(Screen.Player.create(android.net.Uri.encode("android.resource://com.androyal.subxplayer/demo"), netUriEncodeHack("Demo")))} ) { Text("Play demo")}
             Text("Available subtitle tracks: EN, FA, ES, FR, DE, JA, KO, AR, RU, ZH...")
         }
     }
 }
-fun android.netUriEncodeHack(s:String)=android.net.Uri.encode(s)
+fun netUriEncodeHack(s:String)=android.net.Uri.encode(s)

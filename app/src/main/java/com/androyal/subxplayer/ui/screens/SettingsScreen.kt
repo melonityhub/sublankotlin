@@ -57,7 +57,7 @@ fun SettingsScreen(navController: NavController, vm: SettingsViewModel = hiltVie
                     SettingsRow(title="Casting", subtitle="Google Cast", onClick={})
                     SettingsRow(title="Shortcuts", subtitle="Keyboard & remote", onClick={ navController.navigate(Screen.Shortcuts.route)})
                     SettingsRow(title="Storage", subtitle="Cache & exports", onClick={})
-                    SettingsRow(title="Secrets & Endpoints", subtitle="Configure API keys & URLs", onClick={ vm.showSecretsDialog() })
+                    SettingsRow(title="Secrets & Endpoints", subtitle="Configure API keys & URLs", onClick={ vm.showSecrets() })
                 }
             }
             item{

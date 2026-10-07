@@ -4,7 +4,7 @@ package com.androyal.subxplayer.data.repository
 import android.content.Context
 import androidx.datastore.preferences.core.*
 import androidx.datastore.preferences.preferencesDataStore
-import com.androyal.subxplayer.MainViewModel.ThemeMode
+import com.androyal.subxplayer.ThemeMode
 import com.androyal.subxplayer.data.models.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.Flow

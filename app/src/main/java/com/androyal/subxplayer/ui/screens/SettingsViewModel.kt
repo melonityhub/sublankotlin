@@ -3,7 +3,7 @@ package com.androyal.subxplayer.ui.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.androyal.subxplayer.MainViewModel.ThemeMode
+import com.androyal.subxplayer.ThemeMode
 import com.androyal.subxplayer.data.repository.SettingsRepository
 import com.androyal.subxplayer.utils.RevenueCatService
 import dagger.hilt.android.lifecycle.HiltViewModel

@@ -3,7 +3,7 @@ package com.androyal.subxplayer.i18n
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.compositionLocalOf
 
-data class AppStrings(
+open class AppStrings(
     val appName:String = "SubX Video Player",
     val searchHint:String = "Search videos…",
     val noVideos:String = "No videos found",
