@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,8 +17,9 @@ import androidx.navigation.NavController
 import com.androyal.subxplayer.network.CatalogRepository
 import com.androyal.subxplayer.ui.navigation.Screen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun YoutubeListScreen(navController: NavController, vm: YoutubeListViewModel = hiltViewModel()){
+fun YoutubeListScreenScreen(navController: NavController, vm: YoutubeListViewModel = hiltViewModel()){
     val videos by vm.videos.collectAsState()
     val isLoading by vm.isLoading.collectAsState()
     Scaffold(topBar={ TopAppBar(title={Text("YouTube - Learn with TED")}) }){

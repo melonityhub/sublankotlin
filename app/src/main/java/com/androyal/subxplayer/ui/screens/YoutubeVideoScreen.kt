@@ -3,6 +3,7 @@ package com.androyal.subxplayer.ui.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -11,8 +12,9 @@ import androidx.navigation.NavController
 import android.webkit.WebView
 import android.webkit.WebViewClient
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun YoutubeVideoScreen(navController: NavController, videoId:String){
+fun YoutubeVideoScreenScreen(navController: NavController, videoId:String){
     Scaffold(topBar={ TopAppBar(title={Text("YouTube Player")}, navigationIcon={ IconButton(onClick={navController.popBackStack()}){ Text("←")}})}){
         padding ->
         Column(Modifier.padding(padding).fillMaxSize()){

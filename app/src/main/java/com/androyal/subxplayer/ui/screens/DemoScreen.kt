@@ -5,14 +5,16 @@ import android.net.Uri
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.androyal.subxplayer.ui.navigation.Screen
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DemoScreen(navController: NavController){
+fun DemoScreenScreen(navController: NavController){
     Scaffold(topBar={ TopAppBar(title={Text("Demo")}) }){
         padding ->
         Column(Modifier.padding(padding).padding(24.dp).fillMaxSize(), verticalArrangement=Arrangement.spacedBy(16.dp)){

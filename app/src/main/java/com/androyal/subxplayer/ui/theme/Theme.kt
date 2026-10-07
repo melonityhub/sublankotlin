@@ -64,5 +64,5 @@ fun SubXTheme(
 // Chrome tokens mirroring ui/theme/settings_chrome_tokens.dart
 object SettingsChromeTokens {
     val cardShape = androidx.compose.foundation.shape.RoundedCornerShape(16)
-    val sectionSpacing = androidx.compose.ui.unit.dp
+    val sectionSpacing = 16.dp
 }
