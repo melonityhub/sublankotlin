@@ -1,7 +1,6 @@
 package com.androyal.subxplayer.utils
 
-import com.google.firebase.analytics.FirebaseAnalytics
-import android.os.Bundle
+
 
 object AnalyticsEvents {
     fun logVideoPlay(id:String, name:String){ try{ AppLogger.d("Analytics: play $name")}catch(_:Exception){} }

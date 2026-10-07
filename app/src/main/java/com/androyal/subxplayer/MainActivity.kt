@@ -39,6 +39,7 @@ class MainActivity : ComponentActivity() {
         val splash = installSplashScreen()
         splash.setKeepOnScreenCondition { viewModel.isLoading.value }
         super.onCreate(savedInstanceState)
+        com.androyal.subxplayer.utils.ActivityHolder.currentActivity = this
 
         WindowCompat.setDecorFitsSystemWindows(window, false)
         pipManager = PipManager(this)
@@ -74,8 +75,14 @@ class MainActivity : ComponentActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        com.androyal.subxplayer.utils.ActivityHolder.currentActivity = this
         setIntent(intent)
         handleIntent(intent)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        com.androyal.subxplayer.utils.ActivityHolder.currentActivity = this
     }
 
     private fun handleIntent(intent: Intent?) {
