@@ -9,7 +9,7 @@ import javax.inject.Singleton
  * Handles new library media functionality for SubX.
  */
 @Singleton
-class NewLibraryMedia @Inject constructor() {
+class NewLibraryMediaHelper @Inject constructor() {
     fun initialize(context: Context) { /* init */ }
 
     companion object {
