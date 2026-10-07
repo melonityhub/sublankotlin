@@ -41,8 +41,10 @@ class MainViewModel @Inject constructor(
             settingsRepository.autoPipFlow.collect { _autoPipEnabled.value = it }
         }
         // splash delay simulation + preload
-        kotlinx.coroutines.delay(600)
-        _isLoading.value = false
+        viewModelScope.launch {
+            kotlinx.coroutines.delay(600)
+            _isLoading.value = false
+        }
     }
 
     fun onSharedVideo(uri: Uri) { _sharedVideoUri.value = uri }
