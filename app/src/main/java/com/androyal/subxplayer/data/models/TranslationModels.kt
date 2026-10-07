@@ -72,15 +72,15 @@ data class EqualizerSettings(
 
 data class YoutubeCatalogVideo(
     val id: String,
-    val youtubeId: String,
+    @com.google.gson.annotations.SerializedName("youtube_id") val youtubeId: String,
     val title: String,
     val channel: String,
     val duration: String,
-    val durationSec: Int,
+    @com.google.gson.annotations.SerializedName("duration_sec") val durationSec: Int,
     val category: String,
     val language: String,
     val level: Int,
-    val subtitleUrl: String
+    @com.google.gson.annotations.SerializedName("subtitle_url") val subtitleUrl: String
 )
 
 data class CatalogMeta(

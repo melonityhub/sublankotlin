@@ -4,20 +4,19 @@ plugins {
     id("com.google.devtools.ksp")
     id("org.jetbrains.kotlin.plugin.serialization")
     id("com.google.dagger.hilt.android")
-    id("com.google.gms.google-services")
-    id("com.google.firebase.crashlytics")
 }
 
 android {
     namespace = "com.androyal.subxplayer"
-    compileSdk = 34 // original 36, using 34 for CI runner compatibility
+    compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.androyal.subxplayer"
-        minSdk = 26 // original 24, bumped for Tika + adaptive icon (requires 26)
+        // Changed to .kmp to allow side-by-side install with original com.androyal.subxplayer
+        applicationId = "com.androyal.subxplayer.kmp"
+        minSdk = 26
         targetSdk = 34
-        versionCode = 47
-        versionName = "2.3.1"
+        versionCode = 48
+        versionName = "2.3.1-kmp"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables { useSupportLibrary = true }
         ndk { abiFilters += listOf("arm64-v8a") }
@@ -25,8 +24,8 @@ android {
 
     buildTypes {
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false
+            isShrinkResources = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -34,7 +33,6 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            // applicationIdSuffix removed to match google-services.json package
         }
     }
 
@@ -79,7 +77,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.6")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.6")
 
-    // Material You dynamic color
     implementation("androidx.compose.material3:material3-window-size-class:1.3.1")
 
     // Core
@@ -109,6 +106,7 @@ dependencies {
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.8.0")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
 
     // Network
@@ -117,24 +115,18 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
 
-    // Media3 ExoPlayer (replaces media_kit + mpv + ffmpeg-kit)
+    // Media3 ExoPlayer
     implementation("androidx.media3:media3-exoplayer:1.4.1")
     implementation("androidx.media3:media3-exoplayer-hls:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-dash:1.4.1")
+    implementation("androidx.media3:media3-exoplayer-rtsp:1.4.1")
     implementation("androidx.media3:media3-ui:1.4.1")
     implementation("androidx.media3:media3-session:1.4.1")
     implementation("androidx.media3:media3-common:1.4.1")
+    implementation("androidx.media3:media3-extractor:1.4.1")
     implementation("androidx.media:media:1.7.0")
 
-    // FFmpegKit (optional, native libs bundled separately)
-    // implementation("com.github.AntonKarpenko:ffmpeg-kit:6.0-2.LTS")
-
-    // Firebase
-    implementation(platform("com.google.firebase:firebase-bom:33.4.0"))
-    implementation("com.google.firebase:firebase-analytics-ktx")
-    implementation("com.google.firebase:firebase-crashlytics-ktx")
-    implementation("com.google.firebase:firebase-config-ktx")
-
-    // ML Kit Translate
+    // ML Kit Translate (offline)
     implementation("com.google.mlkit:translate:17.0.3")
     implementation("com.google.mlkit:common:18.11.0")
 
@@ -142,15 +134,8 @@ dependencies {
     implementation("com.google.android.gms:play-services-cast-framework:21.4.0")
     implementation("com.google.android.gms:play-services-cast:21.4.0")
 
-    // Billing + RevenueCat
-    implementation("com.revenuecat.purchases:purchases:8.12.1")
-    implementation("com.android.billingclient:billing:7.1.1")
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
-
-    // Permissions
-    // Permissions (accompanist deprecated, use activity result APIs)
-    // implementation("com.google.accompanist:accompanist-permissions:0.34.0")
-    implementation("com.karumi:dexter:6.2.3")
+    // Permissions - use Activity Result API (no extra lib needed, but keep dexter disabled)
+    // Billing + RevenueCat REMOVED - all premium unlocked, no purchase logic
 
     // Image + File
     implementation("io.coil-kt:coil-compose:2.7.0")
@@ -159,16 +144,8 @@ dependencies {
 
     // Utils
     implementation("androidx.documentfile:documentfile:1.0.1")
-    // File utils (optional)
-    // implementation("me.zhanghai.android.filesystem:filesystem:1.0.0")
     implementation("org.apache.tika:tika-core:2.9.1")
     implementation("net.lingala.zip4j:zip4j:2.11.5")
-
-    // AnkiDroid API (optional, via reflection)
-    // implementation("com.ichi2.anki:api:0.2.1") { isTransitive = false }
-
-    // TTS + Sherpa ONNX (bundled .so) - platform TTS via Android framework
-    // implementation("androidx.speech:speech:1.0.0") // not a real artifact, removed
 
     // Lottie
     implementation("com.airbnb.android:lottie-compose:6.5.2")

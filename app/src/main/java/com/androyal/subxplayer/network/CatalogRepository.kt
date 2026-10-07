@@ -11,7 +11,13 @@ import java.io.InputStreamReader
 import javax.inject.Inject
 import javax.inject.Singleton
 
-data class CatalogFile(val version:Int, val schema_version:Int, val status:Int, val updated_at:String, val videos:List<YoutubeCatalogVideo>)
+data class CatalogFile(
+    val version:Int,
+    @com.google.gson.annotations.SerializedName("schema_version") val schema_version:Int,
+    val status:Int,
+    @com.google.gson.annotations.SerializedName("updated_at") val updated_at:String,
+    val videos:List<YoutubeCatalogVideo>
+)
 
 @Singleton
 class CatalogRepository @Inject constructor(@ApplicationContext private val context: Context, private val api: SubxApiService) {

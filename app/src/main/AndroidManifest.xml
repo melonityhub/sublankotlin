@@ -2,13 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Media -->
+    <!-- Media - Runtime requested only when needed -->
     <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission android:maxSdkVersion="32" android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:maxSdkVersion="28" android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" tools:ignore="ScopedStorage" />
 
     <!-- Network -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -19,13 +18,9 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROCESSING" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
 
-    <!-- Notifications -->
+    <!-- Notifications (only for playback, requested at runtime if needed) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-
-    <!-- Billing -->
-    <uses-permission android:name="com.android.vending.BILLING" />
 
     <!-- Cast -->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -41,13 +36,12 @@
         <intent><action android:name="android.intent.action.TTS_SERVICE" /></intent>
         <package android:name="com.google.android.gms.policy_cast_dynamite" />
         <intent><action android:name="android.intent.action.GET_CONTENT" /><data android:mimeType="*/*" /></intent>
-        <intent><action android:name="com.android.vending.billing.InAppBillingService.BIND" /></intent>
     </queries>
 
     <permission
-        android:name="com.androyal.subxplayer.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+        android:name="com.androyal.subxplayer.kmp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
         android:protectionLevel="signature" />
-    <uses-permission android:name="com.androyal.subxplayer.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+    <uses-permission android:name="com.androyal.subxplayer.kmp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
     <uses-permission android:name="com.ichi2.anki.permission.READ_WRITE_DATABASE" />
 
     <application
@@ -175,15 +169,13 @@
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.androyal.subxplayer.fileprovider"
+            android:authorities="com.androyal.subxplayer.kmp.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_paths" />
         </provider>
 
         <meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
-
-        <!-- Firebase init handled by SubxApplication -->
 
     </application>
 </manifest>

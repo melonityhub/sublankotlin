@@ -1,11 +1,9 @@
-
 package com.androyal.subxplayer.ui.screens
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.androyal.subxplayer.ThemeMode
 import com.androyal.subxplayer.data.repository.SettingsRepository
-import com.androyal.subxplayer.utils.RevenueCatService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -21,16 +19,16 @@ data class SettingsState(
     val secondaryLang:String? = null,
     val translationTarget:String="fa",
     val catalogBaseUrl:String="https://catalog.subx.app",
-    val revenueCatKey:String="goog_luBnwcCAtCYXvIihhKyRTXAmAxd",
+    val revenueCatKey:String="",
     val subsBaseUrl:String="https://www.subx.app/subs",
-    val firebaseKey:String="AIzaSyCt-RfF5oylNh4bm4MB1kjpzkJH77rPa-4",
-    val isPremium:Boolean=false,
+    val firebaseKey:String="",
+    val isPremium:Boolean=true,
     val showSecrets:Boolean=false
 )
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(private val repo: SettingsRepository): ViewModel(){
-    private val _state = MutableStateFlow(SettingsState())
+    private val _state = MutableStateFlow(SettingsState(isPremium = true))
     val state: StateFlow<SettingsState> = _state
 
     init{
@@ -38,7 +36,8 @@ class SettingsViewModel @Inject constructor(private val repo: SettingsRepository
         viewModelScope.launch{ repo.catalogBaseUrlFlow.collect{ _state.value=_state.value.copy(catalogBaseUrl=it)}}
         viewModelScope.launch{ repo.revenueCatKeyFlow.collect{ _state.value=_state.value.copy(revenueCatKey=it)}}
         viewModelScope.launch{ repo.subsBaseUrlFlow.collect{ _state.value=_state.value.copy(subsBaseUrl=it)}}
-        viewModelScope.launch{ RevenueCatService.isPremium.collect{ _state.value=_state.value.copy(isPremium=it)}}
+        // Always premium
+        _state.value = _state.value.copy(isPremium = true)
     }
 
     fun setHwDecoding(v:Boolean){ viewModelScope.launch{ _state.value=_state.value.copy(hwDecoding=v)}}
@@ -50,7 +49,6 @@ class SettingsViewModel @Inject constructor(private val repo: SettingsRepository
             repo.setRevenueCatKey(rcKey)
             repo.setSubsBaseUrl(subs)
             repo.setFirebaseApiKey(firebase)
-            try{ RevenueCatService.initWithKey(com.androyal.subxplayer.utils.ActivityHolder.currentActivity!!, rcKey)}catch(_:Exception){}
             hideSecrets()
         }
     }
