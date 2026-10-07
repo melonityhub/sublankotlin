@@ -49,22 +49,33 @@ jobs:
 
       - name: Generate Gradle Wrapper if missing
         run: |
+          # Check if existing jar is valid
+          if [ -f gradle/wrapper/gradle-wrapper.jar ]; then
+            if ! unzip -l gradle/wrapper/gradle-wrapper.jar >/dev/null 2>&1; then
+              echo "Existing wrapper jar is corrupt, removing..."
+              rm -f gradle/wrapper/gradle-wrapper.jar
+            else
+              echo "Existing wrapper jar is valid"
+            fi
+          fi
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
             echo "Generating wrapper..."
             mkdir -p gradle/wrapper
             echo "Trying raw.githubusercontent.com..."
             curl -sL --retry 3 https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded via raw" || echo "raw failed"
-            if [ ! -s gradle/wrapper/gradle-wrapper.jar ]; then
-              echo "Trying github.com..."
+            if [ ! -s gradle/wrapper/gradle-wrapper.jar ] || ! unzip -l gradle/wrapper/gradle-wrapper.jar >/dev/null 2>&1; then
+              echo "Raw download invalid, trying github.com..."
+              rm -f gradle/wrapper/gradle-wrapper.jar
               curl -sL --retry 3 https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded via github" || echo "github failed"
             fi
-            if [ ! -s gradle/wrapper/gradle-wrapper.jar ]; then
-              echo "Fallback: gradle wrapper task"
+            if [ ! -s gradle/wrapper/gradle-wrapper.jar ] || ! unzip -l gradle/wrapper/gradle-wrapper.jar >/dev/null 2>&1; then
+              echo "Both downloads failed/invalid, fallback: gradle wrapper task"
+              rm -f gradle/wrapper/gradle-wrapper.jar
               gradle wrapper --gradle-version 8.7 || true
             fi
             ls -lh gradle/wrapper/ || true
-            file gradle/wrapper/gradle-wrapper.jar || true
-            head -c 100 gradle/wrapper/gradle-wrapper.jar | od -c | head -2 || true
+            if command -v file >/dev/null 2>&1; then file gradle/wrapper/gradle-wrapper.jar || true; fi
+            unzip -l gradle/wrapper/gradle-wrapper.jar | head -5 || true
           fi
           chmod +x gradlew || true
           ls -lh gradlew gradle/wrapper/ || true
