@@ -165,8 +165,8 @@ dependencies {
     // AnkiDroid API (optional, via reflection)
     // implementation("com.ichi2.anki:api:0.2.1") { isTransitive = false }
 
-    // TTS + Sherpa ONNX (bundled .so)
-    implementation("androidx.speech:speech:1.0.0")
+    // TTS + Sherpa ONNX (bundled .so) - platform TTS via Android framework
+    // implementation("androidx.speech:speech:1.0.0") // not a real artifact, removed
 
     // Lottie
     implementation("com.airbnb.android:lottie-compose:6.5.2")
