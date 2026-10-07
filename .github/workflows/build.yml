@@ -23,6 +23,11 @@ jobs:
           java-version: 17
           cache: gradle
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: 8.7
+
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         continue-on-error: true
@@ -46,14 +51,24 @@ jobs:
         run: |
           if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
             echo "Generating wrapper..."
-            GRADLE_VERSION=8.7
             mkdir -p gradle/wrapper
-            curl -sL --retry 3 https://github.com/gradle/gradle/raw/v${GRADLE_VERSION}/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded wrapper jar" || echo "download failed"
+            echo "Trying raw.githubusercontent.com..."
+            curl -sL --retry 3 https://raw.githubusercontent.com/gradle/gradle/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded via raw" || echo "raw failed"
+            if [ ! -s gradle/wrapper/gradle-wrapper.jar ]; then
+              echo "Trying github.com..."
+              curl -sL --retry 3 https://github.com/gradle/gradle/raw/v8.7.0/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar && echo "Downloaded via github" || echo "github failed"
+            fi
+            if [ ! -s gradle/wrapper/gradle-wrapper.jar ]; then
+              echo "Fallback: gradle wrapper task"
+              gradle wrapper --gradle-version 8.7 || true
+            fi
             ls -lh gradle/wrapper/ || true
+            file gradle/wrapper/gradle-wrapper.jar || true
+            head -c 100 gradle/wrapper/gradle-wrapper.jar | od -c | head -2 || true
           fi
           chmod +x gradlew || true
           ls -lh gradlew gradle/wrapper/ || true
-          ./gradlew --version || true
+          ./gradlew --version || gradle --version || true
 
       - name: Validate project
         run: |
@@ -75,7 +90,6 @@ jobs:
           tail -n 800 /tmp/build.log || true
           echo "---- errors ----"
           grep -i "error" /tmp/build.log | head -200 || true
-          # Save for repo push fallback
           cp /tmp/build.log ./build-failure.log || true
           if [ $EXIT -ne 0 ]; then
             echo "BUILD_FAILED=true" >> $GITHUB_ENV
@@ -85,16 +99,15 @@ jobs:
       - name: Push build log to repo on failure
         if: failure()
         run: |
-          echo "Pushing build log to repo for debugging (allowed host github.com)"
+          echo "Pushing build log to repo for debugging"
           cp /tmp/build.log ./build-failure.log || true
-          # Also create a summary file
           echo "# Build failure log" > BUILD_LOG.md
           echo '```' >> BUILD_LOG.md
-          tail -n 500 /tmp/build.log >> BUILD_LOG.md || true
+          tail -n 600 /tmp/build.log >> BUILD_LOG.md || true
           echo '```' >> BUILD_LOG.md
           git config user.name "ci-bot"
           git config user.email "ci@subx.player"
-          git add build-failure.log BUILD_LOG.md || true
+          git add -f build-failure.log BUILD_LOG.md || true
           git commit -m "ci: upload build log for debugging [skip ci]" || true
           git push origin HEAD:arena/4c875844-sublankotlin || true
 
