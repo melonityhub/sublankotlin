@@ -13,7 +13,7 @@ android {
 
     defaultConfig {
         applicationId = "com.androyal.subxplayer"
-        minSdk = 24
+        minSdk = 26 // original 24, bumped for Tika + adaptive icon (requires 26)
         targetSdk = 34
         versionCode = 47
         versionName = "2.3.1"
@@ -94,7 +94,7 @@ dependencies {
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.50")
-    ksp("com.google.dagger:hilt-compiler:2.50")
+    ksp("com.google.dagger:hilt-android-compiler:2.50")
     implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Room
