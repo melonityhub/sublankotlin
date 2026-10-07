@@ -92,15 +92,28 @@ jobs:
         id: build_debug
         run: |
           set +e
-          ./gradlew assembleDebug --stacktrace --warning-mode all 2>&1 | tee /tmp/build.log
+          # Try ./gradlew first, fallback to gradle if wrapper is corrupt
+          GRADLE_CMD="./gradlew"
+          if ! $GRADLE_CMD --version >/dev/null 2>&1; then
+            echo "Wrapper invalid, using gradle directly"
+            GRADLE_CMD="gradle"
+          fi
+          echo "Using $GRADLE_CMD"
+          $GRADLE_CMD assembleDebug --stacktrace --warning-mode all 2>&1 | tee /tmp/build.log
           EXIT=${PIPESTATUS[0]}
+          if [ $EXIT -ne 0 ] && [ "$GRADLE_CMD" = "./gradlew" ]; then
+            echo "Retrying with gradle directly..."
+            gradle assembleDebug --stacktrace --warning-mode all 2>&1 | tee /tmp/build.log2
+            EXIT=${PIPESTATUS[0]}
+            cat /tmp/build.log2 >> /tmp/build.log || true
+          fi
           echo "Gradle exit code: $EXIT"
           mkdir -p app/build/outputs/logs
           cp /tmp/build.log app/build/outputs/logs/build.log || true
           echo "---- last 800 lines ----"
           tail -n 800 /tmp/build.log || true
           echo "---- errors ----"
-          grep -i "error" /tmp/build.log | head -200 || true
+          grep -i "error" /tmp/build.log | head -300 || true
           cp /tmp/build.log ./build-failure.log || true
           if [ $EXIT -ne 0 ]; then
             echo "BUILD_FAILED=true" >> $GITHUB_ENV
