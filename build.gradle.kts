@@ -10,20 +10,3 @@ plugins {
 task("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
-pluginManagement {
-    repositories {
-        google()
-        mavenCentral()
-        gradlePluginPortal()
-    }
-}
-dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-    repositories {
-        google()
-        mavenCentral()
-        maven("https://jitpack.io")
-    }
-}
-rootProject.name = "SubX Video Player"
-include(":app")
