@@ -33,7 +33,7 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            applicationIdSuffix = ".debug"
+            // applicationIdSuffix removed to match google-services.json package
         }
     }
 
