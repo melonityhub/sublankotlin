@@ -1,0 +1,35 @@
+1
+00:00:04,000 --> 00:00:05,500
+Selamat datang, teman-teman.
+
+2
+00:00:05,500 --> 00:00:07,708
+Saya akan segera ke sana.
+
+3
+00:00:12,750 --> 00:00:15,250
+Bisakah saya menawarkan teh pepermin?
+
+4
+00:00:15,250 --> 00:00:17,167
+Kalian ini apa?
+
+5
+00:00:17,167 --> 00:00:20,917
+Kami adalah Sprite. Kami adalah Sprite yang menjaga keseimbangan hutan.
+
+6
+00:00:20,917 --> 00:00:26,167
+Kami merawat hewan, tanaman, burung, lumut...
+
+7
+00:00:27,500 --> 00:00:30,417
+Teman-teman? Teman-teman, aku...
+
+8
+00:00:33,083 --> 00:00:38,042
+Hei, eh, kakek jamur kecil, kau tidak keberatan kami berkemah di sini malam ini?
+
+9
+00:00:38,042 --> 00:00:42,833
+Benar sekali. Sahabat hutan adalah sahabat para peri.

@@ -1,0 +1,110 @@
+name: Build and Release SubX Player
+
+on:
+  push:
+    branches: [ main, arena/** ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+          cache: gradle
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Download Gradle Wrapper Jar
+        run: |
+          GRADLE_VERSION=8.7
+          if [ ! -f gradle/wrapper/gradle-wrapper.jar ]; then
+            echo "Downloading gradle-wrapper.jar..."
+            curl -sL https://github.com/gradle/gradle/raw/v${GRADLE_VERSION}/gradle/wrapper/gradle-wrapper.jar -o gradle/wrapper/gradle-wrapper.jar || \
+            curl -sL https://services.gradle.org/distributions/gradle-${GRADLE_VERSION}-bin.zip -o /tmp/gradle.zip
+            ls -lh gradle/wrapper/
+          fi
+          chmod +x gradlew || true
+          # Ensure gradlew exists
+          if [ ! -f gradlew ]; then
+            cat > gradlew <<'GRADLEEOF'
+          #!/usr/bin/env sh
+          exec gradle "$@"
+          GRADLEEOF
+            chmod +x gradlew
+          fi
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Validate project
+        run: |
+          echo "Checking project structure..."
+          ls -R app/src/main | head -100
+          cat app/build.gradle.kts | head -30
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --stacktrace --info
+        continue-on-error: false
+
+      - name: Build Release APK
+        run: ./gradlew assembleRelease --stacktrace
+        continue-on-error: true
+
+      - name: Run Lint
+        run: ./gradlew lint --stacktrace
+        continue-on-error: true
+
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SubX-Debug-APK
+          path: app/build/outputs/apk/debug/*.apk
+          if-no-files-found: warn
+
+      - name: Upload Release APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: SubX-Release-APK
+          path: app/build/outputs/apk/release/*.apk
+          if-no-files-found: warn
+
+      - name: Create Release
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v2.3.1-${{ github.run_number }}
+          name: SubX Player v2.3.1 Build ${{ github.run_number }}
+          body: |
+            Automated build of SubX Video Player (Kotlin port).
+            - Faithful replica of original Flutter app
+            - All screens, features, and endpoints
+            - Configurable secrets in Settings > Advanced > Secrets
+          files: |
+            app/build/outputs/apk/debug/*.apk
+            app/build/outputs/apk/release/*.apk
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Build Reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-reports
+          path: |
+            app/build/reports/
+            app/build/outputs/logs/
+          if-no-files-found: ignore

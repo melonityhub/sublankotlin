@@ -1,0 +1,35 @@
+1
+00:00:04,000 --> 00:00:05,500
+Benvenuti, carissimi!
+
+2
+00:00:05,500 --> 00:00:07,708
+Sono subito da voi.
+
+3
+00:00:12,750 --> 00:00:15,250
+Vi interessa un te alla menta?
+
+4
+00:00:15,250 --> 00:00:17,167
+Che cosa siete?
+
+5
+00:00:17,167 --> 00:00:20,917
+Siamo folletti. Creiamo armonia nella foresta.
+
+6
+00:00:20,917 --> 00:00:26,167
+Ci prendiamo cura degli animali, piante, uccelli, il muschio...
+
+7
+00:00:27,500 --> 00:00:30,417
+Ragazzi? Ragazzi? Hei...
+
+8
+00:00:33,083 --> 00:00:38,042
+Hey, eh, fungo vivente, ti va se ci fermiamo qui per la notte?
+
+9
+00:00:38,042 --> 00:00:42,833
+Certamente. Un amico della foresta è un amico dei folletti.

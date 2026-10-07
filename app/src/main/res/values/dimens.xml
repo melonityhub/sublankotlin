@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="card_corner">16dp</dimen>
+    <dimen name="sheet_peek">56dp</dimen>
+    <dimen name="player_controls_height">56dp</dimen>
+</resources>

@@ -1,0 +1,35 @@
+1
+00:00:04,000 --> 00:00:05,500
+Willkommen Freunde.
+
+2
+00:00:05,500 --> 00:00:07,708
+Ich komme gleich runter.
+
+3
+00:00:12,750 --> 00:00:15,250
+Könnte ich euch zu einem Pfefferminztee einladen?
+
+4
+00:00:15,250 --> 00:00:17,167
+Was seid ihr für welche?
+
+5
+00:00:17,167 --> 00:00:20,917
+Wir sind Sprites. Wir bringen den Wald ins Gleichgewicht.
+
+6
+00:00:20,917 --> 00:00:26,167
+Wir kümmern uns um die Tiere, Pflanzen, Vögel, Moos, ...
+
+7
+00:00:27,500 --> 00:00:30,417
+Leute? Leute, ich...
+
+8
+00:00:33,083 --> 00:00:38,042
+Hey, eeh, kleiner Pilzopa, geht das klar, wenn wir hier heute nacht campen?
+
+9
+00:00:38,042 --> 00:00:42,833
+Aber natürlich! Ein Freund des Waldes ist ein Freund der Sprites.

@@ -1,0 +1,35 @@
+1
+00:00:04,000 --> 00:00:05,500
+Bienvenue, mes amis.
+
+2
+00:00:05,500 --> 00:00:07,708
+J’arrive tout de suite.
+
+3
+00:00:12,750 --> 00:00:15,250
+Puis-je vous proposer un peu de thé à la menthe poivrée ?
+
+4
+00:00:15,250 --> 00:00:17,167
+Mais… vous êtes quoi, exactement ?
+
+5
+00:00:17,167 --> 00:00:20,917
+Nous sommes des lutins. Nous apportons l’équilibre à la forêt.
+
+6
+00:00:20,917 --> 00:00:26,167
+Nous veillons sur les animaux, les plantes, les oiseaux, les mousses…
+
+7
+00:00:27,500 --> 00:00:30,417
+Les gars ? Les gars, je…
+
+8
+00:00:33,083 --> 00:00:38,042
+Hé, euh… petit vieux champignon, ça te dérange si on campe ici cette nuit ?
+
+9
+00:00:38,042 --> 00:00:42,833
+Absolument. L’ami de la forêt est l’ami des lutins.

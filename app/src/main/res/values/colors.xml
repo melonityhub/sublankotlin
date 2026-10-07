@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="seed">#FF4F46E5</color>
+    <color name="primary">#FF4F46E5</color>
+    <color name="primary_dark">#FF3730A3</color>
+    <color name="accent">#FF06B6D4</color>
+    <color name="surface">#FFFCFCFF</color>
+    <color name="background">#FF0F0F14</color>
+    <color name="error">#FFDC2626</color>
+</resources>

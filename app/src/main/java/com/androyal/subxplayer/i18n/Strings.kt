@@ -1,0 +1,100 @@
+package com.androyal.subxplayer.i18n
+
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.compositionLocalOf
+
+data class AppStrings(
+    val appName:String = "SubX Video Player",
+    val searchHint:String = "Search videos…",
+    val noVideos:String = "No videos found",
+    val allowMediaScan:String = "Allow SubX to scan your media?",
+    val continueWatching:String = "Continue watching?",
+    val resume:String = "Resume",
+    val restart:String = "Restart",
+    val settings:String = "Settings",
+    val premium:String = "SubX+",
+    val premiumDesc:String = "Unlock all premium features",
+    val generateSubtitles:String = "Generate subtitles",
+    val translate:String = "Translate",
+    val ankiExport:String = "Export to Anki",
+    val playback:String = "Playback",
+    val subtitles:String = "Subtitles",
+    val translation:String = "Translation",
+    val appearance:String = "Appearance",
+    val storage:String = "Storage",
+    val about:String = "About",
+    val help:String = "Help",
+    val network:String = "Network",
+    val youtube:String = "YouTube",
+    val library:String = "Library",
+    val home:String = "Home",
+    val castingTo:String = "Casting to %s",
+    val allPremiumUnlocked:String = "Welcome to SubX+! All premium features unlocked.",
+    val premiumRestored:String = "Premium restored. All features unlocked.",
+    val download:String = "Download",
+    val delete:String = "Delete",
+    val edit:String = "Edit",
+    val share:String = "Share",
+    val copy:String = "Copy",
+    val error:String = "Error",
+    val loading:String = "Loading…",
+    val retry:String = "Retry",
+    val ok:String = "OK",
+    val cancel:String = "Cancel",
+    val save:String = "Save",
+    val close:String = "Close",
+    val done:String = "Done",
+    val next:String = "Next",
+    val previous:String = "Previous",
+    val play:String = "Play",
+    val pause:String = "Pause",
+    val speed:String = "Speed",
+    val aspectRatio:String = "Aspect ratio",
+    val audio:String = "Audio",
+    val equalizer:String = "Equalizer",
+    val brightness:String = "Brightness",
+    val volume:String = "Volume",
+    val seek:String = "Seek",
+    val gestures:String = "Gestures",
+    val hardwareDecoding:String = "Hardware decoding",
+    val theme:String = "Theme",
+    val language:String = "Language",
+    val primaryLanguage:String = "Primary language",
+    val secondaryLanguage:String = "Secondary language",
+    val targetLanguage:String = "Target language",
+    val sourceLanguage:String = "Source language",
+    val offlineLanguages:String = "Offline languages",
+    val asrModels:String = "ASR models",
+    val cast:String = "Cast",
+    val pip:String = "Picture-in-picture",
+    val shortcuts:String = "Shortcuts",
+    val rateApp:String = "Rate app",
+    val feedback:String = "Feedback",
+    val privacy:String = "Privacy policy",
+    val version:String = "Version",
+    val favorites:String = "Favorites",
+    val recent:String = "Recent",
+    val history:String = "History",
+    val bookmarks:String = "Bookmarks",
+    val playlist:String = "Playlist",
+    val folder:String = "Folder",
+    val file:String = "File",
+    val url:String = "URL",
+    val importSubtitle:String = "Import subtitle",
+    val exportSubtitle:String = "Export subtitle",
+    val bilingual:String = "Bilingual",
+    val autoPause:String = "Auto-pause",
+    val autoRepeat:String = "Auto-repeat",
+    val autoSkip:String = "Auto-skip"
+)
+
+val LocalStrings = compositionLocalOf { AppStrings() }
+
+@Composable
+fun string(key:String): String = when(key){
+    "appName" -> LocalStrings.current.appName
+    else -> key
+}
+
+object StringsEn : AppStrings()
+object StringsFa : AppStrings(appName="پخش‌کننده ویدیو SubX", searchHint="جستجوی ویدیوها…", noVideos="ویدیویی یافت نشد", allowMediaScan="به SubX اجازه اسکن رسانه‌ها داده شود؟")
