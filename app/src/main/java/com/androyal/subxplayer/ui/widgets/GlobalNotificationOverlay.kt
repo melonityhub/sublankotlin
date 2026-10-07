@@ -1,4 +1,4 @@
-package com.androyal.subxplayer.ui.widgets.
+package com.androyal.subxplayer.ui.widgets
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
